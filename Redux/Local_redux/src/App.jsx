@@ -1,11 +1,12 @@
 import React from "react";
-import { Login } from "./Components/Login";
+import { Navbar } from "./Components/Navbar";
+import { AllRoutes } from "./Routes/AllRoutes";
 
 export const App = () => {
   return (
     <>
-      < Navbar/>
-      <AllRoutes/>
+      <Navbar />
+      <AllRoutes />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Login } from '../Components/Login';
 import { Home } from '../Pages/Home';
-import { PageNoyFound404 } from '../Pages/PageNoyFound404';
+import { PageNoyFound404 } from '../Pages/PageNoFound404';
 
 export const AllRoutes = () => {
   return (
