@@ -1,11 +1,13 @@
 const loadData = (key) => {
-  return JSON.parse(localStorage.getItem(key));
+  try {
+    return JSON.parse(localStorage.getItem(key));
+  } catch (err) {
+    return null;
+  }
 };
 
 const saveData = (key, payload) => {
-  return localStorage.setItem(key, JSON.stringify(payload));
+  localStorage.setItem(key, JSON.stringify(payload));
 };
 
 export { loadData, saveData };
-
-

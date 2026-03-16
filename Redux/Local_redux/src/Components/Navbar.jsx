@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LOGOUT } from "../Redux/Auth/Action";
 
 export const Navbar = () => {
-  const nav = [
-    { path: "/", element: "home" },
-    { path: "/login", element: "login" },
-    { path: "/single", element: "singlePage" },
-  ];
+  const dispatch = useDispatch();
+
+  const isAuth = useSelector((store) => store.auth.isAuth);
+
+  const handleLogout = () => {
+    dispatch({ type: LOGOUT });
+  };
 
   return (
-    <>
-      {nav.map((item, i) => {
-        return (
-          <Link key={i} to={item.path}>
-            {item.element}
-          </Link>
-        );
-      })}
-    </>
+    <div style={{ display: "flex", gap: "20px" }}>
+      <Link to="/">Home</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/todo">Todo</Link>
+      <Link to="/single">SinglePage</Link>
+
+      {isAuth && (
+        <button onClick={handleLogout}>
+          Logout
+        </button>
+      )}
+    </div>
   );
 };
