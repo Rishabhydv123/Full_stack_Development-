@@ -1,12 +1,16 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from "../Redux/Auth/Action";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+} from "../Redux/Auth/Action";
 
 export const Login = () => {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector((store) => store.isLoading);
+  const isLoading = useSelector((store) => store.auth.isLoading);
 
   const [userValue, setUserValue] = React.useState({
     email: "",
@@ -16,13 +20,13 @@ export const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setUserValue((prev) => ({
-      ...prev,
+    setUserValue({
+      ...userValue,
       [name]: value,
-    }));
+    });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     dispatch({ type: LOGIN_REQUEST });
@@ -33,14 +37,12 @@ export const Login = () => {
         dispatch({
           type: LOGIN_SUCCESS,
           payload: {
-            users: userValue,
+            user: userValue,
             token: res.data.token,
           },
         });
       })
-      .catch((err) => {
-        console.log("Error:", err);
-
+      .catch(() => {
         dispatch({ type: LOGIN_FAILURE });
       });
   };
@@ -50,39 +52,23 @@ export const Login = () => {
   }
 
   return (
-    <div>
-      <form
-        onSubmit={handleFormSubmit}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          height: "30vh",
-          gap: "1rem",
-        }}
-      >
-        <div>
-          <label>Email</label>
-          <input
-            type="text"
-            name="email"
-            value={userValue.email}
-            onChange={handleChange}
-          />
-        </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        name="email"
+        placeholder="email"
+        value={userValue.email}
+        onChange={handleChange}
+      />
 
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={userValue.password}
-            onChange={handleChange}
-          />
-        </div>
+      <input
+        name="password"
+        type="password"
+        placeholder="password"
+        value={userValue.password}
+        onChange={handleChange}
+      />
 
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      <button type="submit">Login</button>
+    </form>
   );
 };
