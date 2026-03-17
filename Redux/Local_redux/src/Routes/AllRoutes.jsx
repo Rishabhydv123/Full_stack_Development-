@@ -1,15 +1,17 @@
-import { Routes, Route } from 'react-router-dom';
-import { Login } from '../Components/Login';
-import { Home } from '../Pages/Home';
-import { PageNoyFound404 } from '../Pages/PageNoFound404';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Home } from './Home';
+import { LoginPage } from './LoginPage';
+import { Navbar } from './Navbar';
 
-export const AllRoutes = () => {
+export const Router_Page = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />}></Route>
-      <Route path="/login" element={<Login />}></Route>
-      <Route path="/single" element></Route>
-      <Route path="*" element={<PageNoyFound404 />}></Route>
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+      </Routes>
+    </>
   );
 };

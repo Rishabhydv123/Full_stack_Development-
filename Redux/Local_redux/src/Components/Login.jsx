@@ -1,74 +1,30 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-} from "../Redux/Auth/Action";
+import React, { useState } from 'react';
 
-export const Login = () => {
-  const dispatch = useDispatch();
-
-  const isLoading = useSelector((store) => store.auth.isLoading);
-
-  const [userValue, setUserValue] = React.useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setUserValue({
-      ...userValue,
-      [name]: value,
-    });
-  };
+export const Login = ({ handleLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPass] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch({ type: LOGIN_REQUEST });
-
-    axios
-      .post("https://reqres.in/api/login", userValue)
-      .then((res) => {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: {
-            user: userValue,
-            token: res.data.token,
-          },
-        });
-      })
-      .catch(() => {
-        dispatch({ type: LOGIN_FAILURE });
-      });
+    const payload = { email, password };
+    handleLogin(payload);
   };
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="email"
-        placeholder="email"
-        value={userValue.email}
-        onChange={handleChange}
-      />
-
-      <input
-        name="password"
-        type="password"
-        placeholder="password"
-        value={userValue.password}
-        onChange={handleChange}
-      />
-
-      <button type="submit">Login</button>
-    </form>
+    <>
+      <form action="#" onSubmit={handleSubmit}>
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="enter the email..."
+        />
+        <input
+          onChange={(e) => setPass(e.target.value)}
+          type="text"
+          placeholder="enter the pass..."
+        />
+        <input type="submit" />
+      </form>
+    </>
   );
 };

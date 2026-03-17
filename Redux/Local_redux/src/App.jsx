@@ -1,12 +1,13 @@
-import React from "react";
-import { Navbar } from "./Components/Navbar";
-import { AllRoutes } from "./Routes/AllRoutes";
+import './App.css';
 
-export const App = () => {
+import { Router_Page } from './Routes/AllRoutes';
+
+function App() {
   return (
     <>
-      <Navbar />
-      <AllRoutes />
+      <Router_Page />
     </>
   );
-};
+}
+
+export default App;

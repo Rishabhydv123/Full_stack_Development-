@@ -1,60 +1,68 @@
-import { loadData, saveData } from "../../Data/localStorage";
 import {
+  delete_token,
+  Load_data,
+  save_data,
+} from '../../Local_storage/Local_storage';
+import {
+  LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT,
-} from "./Action";
+  REMOVE_TOKEN,
+} from './actions';
 
-const key = "token";
+let token_var = 'token';
 
-let verify = loadData(key);
+const token = Load_data(token_var);
 
-const initialValue = {
-  user: [],
-  isAuth: verify ? true : false,
-  token: verify || "",
-  isLoading: false,
+const initialState = {
+  isAuth: token ? true : false,
+  token: token || '',
   isError: false,
+  isLoading: false,
 };
 
-const Reducer = (state = initialValue, { type, payload }) => {
+export const authReducer = (state = initialState, { payload, type }) => {
+  console.log('🚀 ~ state:', state);
+  console.log('🚀 ~ payload:', payload);
   switch (type) {
-    case LOGIN_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-
-    case LOGIN_SUCCESS:
-      saveData(key, payload.token);
+    case REMOVE_TOKEN: {
+      delete_token(token_var);
       return {
         ...state,
         isLoading: false,
+        isAuth: false,
+        token: '',
+      };
+    }
+
+    case LOGIN_SUCCESS: {
+      save_data('token', payload);
+      return {
+        ...state,
         isAuth: true,
-        token: payload.token,
-        user: payload.user,
+        token: payload,
+        isLoading: true,
+        isError: false,
       };
-
-    case LOGIN_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-      };
-
-    case LOGOUT:
-      localStorage.removeItem("token");
+    }
+    case LOGIN_FAILURE: {
       return {
         ...state,
         isAuth: false,
-        token: "",
-        user: [],
+        token: '',
+        isError: true,
+        isLoading: false,
       };
+    }
+    case LOGIN_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    }
 
     default:
       return state;
   }
 };
-
-export { Reducer };
