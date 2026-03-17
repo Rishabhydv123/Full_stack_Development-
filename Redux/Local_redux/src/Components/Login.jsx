@@ -1,30 +1,71 @@
-import React, { useState } from 'react';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { LOGIN_SUCESS,LOGIN_REQUEST,LOGIN_FAILUER } from "../Redux/Action";
 
-export const Login = ({ handleLogin }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPass] = useState('');
+import axios from "axios";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const payload = { email, password };
-    handleLogin(payload);
-  };
+export const Login =()=>{
+    const dispatch = useDispatch();
+    const value = useSelector((store)=>store.isLoading);
+    const [userValue, setUserValue] =React.useState({
+        email:'',
+        password:'',
+    });
 
-  return (
-    <>
-      <form action="#" onSubmit={handleSubmit}>
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          type="text"
-          placeholder="enter the email..."
-        />
-        <input
-          onChange={(e) => setPass(e.target.value)}
-          type="text"
-          placeholder="enter the pass..."
-        />
-        <input type="submit" />
-      </form>
-    </>
-  );
-};
+    const handleChange =(e)=>{
+        const {name , value}= e.target;
+
+        setUserValue((prev)=>{
+            return{
+                ...prev,
+                [name]: value,
+            };
+        });
+    };
+
+    const handleFormSubmit =(e)=>{
+        e.preventDefault();
+
+        dispatch({type:LOGIN_REQUEST});
+        axios
+        .post('https://reqres.in/api/login', userValue, {
+           headers:
+         {'x-api-key': 'reqres_e9afee0fc80e48fea658c39df3124409'},
+        })
+        .then((res)=> 
+         dispatch({
+            type: LOGIN_SUCESS,
+            payload:{users:userValue, token: res.data.token},
+         }),
+        )
+        .catch((err)=>{
+            console.log(err);
+
+            dispatch({type:LOGIN_FAILUER});
+        });
+    };
+
+    if(value){
+        return <h1>Loading....</h1>
+    }
+
+    return(
+        <>
+        <div>
+            <form onSubmit={handleFormSubmit}
+            style={{display:'flex', alignItems:'center', flexDirection:'column', height:'30vh',gap:'1rem'}}>
+            <div>
+                <label htmlFor="">email</label>{' '}
+                <input type="text" name="email" onChange={(e)=>handleChange(e)}/>
+            </div>
+            <div>
+                <label htmlFor="">Password</label> { ' '}
+                <input type="text" name="password" onChange={(e)=>handleChange(e)}/>
+            </div>
+            <button type="submit">Submit</button>
+            </form>
+
+        </div>
+        </>
+    )
+}

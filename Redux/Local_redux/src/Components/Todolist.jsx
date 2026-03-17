@@ -1,30 +1,28 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import { DELETE_TODOS,EDIT_TODOS } from "../Redux/Todos/Action";
 
-import { DELETE_TODOS, EDITS_TODOS } from '../Redux/todos/Action';
+export const TodoList = ()=>{
+    const dispatch = useDispatch();
+    const data = useSelector((state)=> state.todo?.todos || [])
 
-export const Todo_List = () => {
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.todo.todos);
-  console.log('🚀 ~ data:', data);
+    const handleEdit =(id)=>{
+        dispatch({type:EDIT_TODOS, payload:id})
+    }
 
-  const handleDelete = (id) => {
-    dispatch({ type: DELETE_TODOS, payload: id });
-  };
-  const handleEdits = (id) => {
-    dispatch({ type: EDITS_TODOS, payload: id });
-  };
+    const handleDel =(id)=>{
+        dispatch({type:DELETE_TODOS,payload:id});
+    }
 
-  return (
-    <>
-      <h3>Todo_List</h3>
-      {data.map((el) => (
-        <div key={el.id}>
-          <p>{el.text}</p>
-          <button onClick={() => handleEdits(el.id)}>edit</button>
-          <button onClick={() => handleDelete(el.id)}>delete</button>
-        </div>
-      ))}
-    </>
-  );
-};
+    return(
+        <>
+        <h3> TodoList</h3>
+        {data.map((el)=>(
+            <div key={el.id}>
+                <p>{el.text}</p>
+                <button onClick={()=>handleEdit(el.id)}>Edit</button>
+                <button onClick={()=> handleDel(el.id)}>Delete</button>
+            </div>
+        ))}
+        </>
+    )
+}

@@ -1,37 +1,29 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+export const Navbar=()=>{
+    const nav = [
+        {path:'/',element:'home'},
+        {path:'/login', element:'login'},
+        {path:'/single' , element:'singlePage'},
+        {path:'/todo', element:'todo'},
+    ];
 
-export const Navbar = () => {
-  const data = [
-    { path: '/', element: 'home' },
-    { path: '/login', element: 'login' },
-  ];
-
-  return (
-    <>
-      {data.map((el) => (
-        <NavLink
-          style={{
-            display: 'inline-flex',
-            width: '100px',
-            height: '30px',
-            justifyContent: 'center',
-            alignContent: 'center',
-            lineHeight: '30px',
-            textTransform: 'capitalize',
-            fontFamily: 'sans-serif',
-            fontSize: '32px',
-            // border: '1px solid red',
-            margin: '20px',
-            textDecoration: 'none',
-            color: '#000',
-          }}
-          to={el.path}
-          key={el.path}
-        >
-          {el.element}
-        </NavLink>
-      ))}
-    </>
+    return(
+       <div style={{listStyle:'none', display:'flex', justifyContent:'center', gap:'20PX' ,textTransform:'capitalize' ,
+        fontSize:'1.1rem',fontWeight:'normal',cursor:'pointer'}}>     
+         {nav.map((item, i) => {
+        return (
+          <NavLink 
+            key={i}
+            to={item.path}
+            style={({ isActive }) => ({
+                textDecoration: 'none',
+              color: isActive ? 'purple': 'black'
+            })}
+          >
+            {item.element}
+          </NavLink>
+        );
+      })}
+    </div>
   );
 };

@@ -1,31 +1,32 @@
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { ADD_TODOS } from '../Redux/todos/Action';
-import { Todo_List } from './Todo_List';
+import { useDispatch } from "react-redux";
+import { ADD_TODOS } from "../Redux/Todos/Action";
+import { useRef } from "react";
+import  {TodoList} from "./TodoList";
 
-export const Todo_Add = () => {
-  const dataValue = useRef(null);
-  const dispatch = useDispatch();
+export const TodoInput =()=>{
 
-  const addTodos = () => {
-    let values = dataValue.current.value;
+    const datavalue = useRef(null);
+    const dispatch = useDispatch();
 
-    let todosObj = {
-      id: Date.now(),
-      text: values,
-      isEdit: false,
-      isComplete: false,
+    const addTodos = ()=>{
+        let values = datavalue.current.value;
+
+        let todos = {
+            id :Date.now(),
+            text: values,
+            isEdit: false,
+            isCompleted: false,
+        };
+
+        dispatch({type: ADD_TODOS, payload:todos});
     };
 
-    dispatch({ type: ADD_TODOS, payload: todosObj });
-  };
+    return(
+        <>
+        <h1>Add Todo</h1>
 
-  return (
-    <>
-      <h1>Todo_Add</h1>
-
-      <input type="text" placeholder="enter todos...." ref={dataValue} />
-      <button onClick={addTodos}>add</button>
-    </>
-  );
-};
+        <input type="text" placeholder="Enter task" ref={datavalue}/>
+        <button onClick={addTodos}>Add Task </button>
+        </>
+    )
+}
