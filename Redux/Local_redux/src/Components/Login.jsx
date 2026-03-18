@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { LOGIN_SUCESS,LOGIN_REQUEST,LOGIN_FAILUER } from "../Redux/Action";
+import { LOGIN_SUCESS,LOGIN_REQUEST,LOGIN_FAILUER } from "../Redux/Auth/Action";
 
 import axios from "axios";
 

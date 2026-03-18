@@ -15,9 +15,9 @@ export const Navbar=()=>{
           <NavLink 
             key={i}
             to={item.path}
-            style={({ isActive }) => ({
-                textDecoration: 'none',
-              color: isActive ? 'purple': 'black'
+            style={({isActive} ) => ({
+              textDecoration: 'none',
+              backgroundColor: isActive ? 'pink': 'Tomato'
             })}
           >
             {item.element}
