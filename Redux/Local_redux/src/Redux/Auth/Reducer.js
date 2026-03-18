@@ -1,68 +1,53 @@
-import {
-  delete_token,
-  Load_data,
-  save_data,
-} from '../../Local_storage/Local_storage';
-import {
-  LOGIN_FAILURE,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  REMOVE_TOKEN,
-} from './actions';
+import { loadData, saveData , deleteToken} from '../../Data/localStorage';
+import {LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE, REMOVE_TOKEN} from './Action'
 
-let token_var = 'token';
 
-const token = Load_data(token_var);
+const key = 'token';
 
-const initialState = {
-  isAuth: token ? true : false,
-  token: token || '',
-  isError: false,
-  isLoading: false,
+let verify = loadData(key);
+
+const initialValue ={
+    user :[],
+    isAuth: verify ? true :false,
+    isToken: verify ||'',
+    isLoading: false,
+    isError:false,
 };
 
-export const authReducer = (state = initialState, { payload, type }) => {
-  console.log('🚀 ~ state:', state);
-  console.log('🚀 ~ payload:', payload);
-  switch (type) {
-    case REMOVE_TOKEN: {
-      delete_token(token_var);
-      return {
-        ...state,
-        isLoading: false,
-        isAuth: false,
-        token: '',
-      };
+const AuthReducer =(oldState = initialValue,{type , payload})=>{
+    switch(type){
+        case REMOVE_TOKEN:{
+            deleteToken(key);
+            return{
+                ...oldState,
+                isLoading:false,
+                isAuth: false,
+                isToken: "",
+                isError: false,
+            }
+        }
+        case LOGIN_REQUEST:
+            return {
+                ...oldState,
+                isLoading:true,
+            };
+        case LOGIN_SUCCESS:
+            saveData(key,payload.token);
+            return{
+                oldState,
+                isLoading:false,
+                isAuth:true,
+                user:[...oldState.user, payload.user],
+                isToken:payload.token,
+            };
+        case LOGIN_FAILURE:
+            return{
+                ...oldState,
+                isError:true,
+            };
+        default:
+            return oldState;
     }
-
-    case LOGIN_SUCCESS: {
-      save_data('token', payload);
-      return {
-        ...state,
-        isAuth: true,
-        token: payload,
-        isLoading: true,
-        isError: false,
-      };
-    }
-    case LOGIN_FAILURE: {
-      return {
-        ...state,
-        isAuth: false,
-        token: '',
-        isError: true,
-        isLoading: false,
-      };
-    }
-    case LOGIN_REQUEST: {
-      return {
-        ...state,
-        isLoading: true,
-        isError: false,
-      };
-    }
-
-    default:
-      return state;
-  }
 };
+
+export {AuthReducer}

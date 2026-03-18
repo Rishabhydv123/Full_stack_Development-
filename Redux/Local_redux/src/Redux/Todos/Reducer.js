@@ -1,29 +1,31 @@
-import { ADD_TODOS, COMPLETE_TODOS, DELETE_TODOS, EDITS_TODOS } from '../Todos/Action';
+import { ADD_TODOS ,DELETE_TODOS,EDIT_TODOS} from "./Action";
 
-const initialState = {
-  todos: [],
+const initialState ={
+    todos:[],
 };
 
-export const todosReducer = (state = initialState, { payload, type }) => {
-  switch (type) {
-    case ADD_TODOS:
-      return {
-        ...state,
-        todos: [...state.todos, payload],
-      };
-
-    case DELETE_TODOS:
-      return {
-        todos: state.todos.filter((el) => el.id != payload),
-      };
-    case EDITS_TODOS:
-      return {
-        todos: state.todos.map((el) =>
-          el.id == payload ? { ...el, isEdit: !el.isEdit } : el
-        ),
-      };
-
-    default:
-      return state;
-  }
-};
+export const TodoReducer =(oldState = initialState,{type,payload})=>{
+    switch(type){
+        case ADD_TODOS:
+            return{
+                ...oldState,
+                todos:[...oldState.todos,payload],
+            };
+        case EDIT_TODOS:
+            return{
+                ...oldState,
+                todos: oldState.todos.map((el)=>
+                el.id === payload ? {...el, isEdit:true}:el
+                ),
+            };
+        case DELETE_TODOS:
+            return{
+                ...oldState,
+                todos: oldState.todos.filter((el)=>
+                    el.id != payload
+                )
+            };
+        default:
+            return oldState;
+    }
+}

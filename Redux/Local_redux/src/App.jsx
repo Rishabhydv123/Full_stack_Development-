@@ -1,13 +1,14 @@
-import './App.css';
+import React from 'react'
+import {Login} from './Components/Login'
+import { AllRoutes } from './Routes/AllRoutes'
+import {Navbar} from './Components/Navbar'
 
-import { Router_Page } from './Routes/AllRoutes';
-
-function App() {
-  return (
+export const App =()=>{
+  return(
     <>
-      <Router_Page />
+    <Navbar />
+    <AllRoutes />
     </>
-  );
+  )
 }
 
-export default App;
