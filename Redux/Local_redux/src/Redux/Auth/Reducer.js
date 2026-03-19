@@ -1,5 +1,7 @@
+
+
 import { loadData, saveData , deleteToken} from '../../Data/localStorage';
-import {LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE, REMOVE_TOKEN} from './Action'
+import {LOGIN_REQUEST, LOGIN_SUCCESS,LOGIN_FAILUER, REMOVE_TOKEN} from './Action'
 
 
 const key = 'token';
@@ -40,7 +42,7 @@ const AuthReducer =(oldState = initialValue,{type , payload})=>{
                 user:[...oldState.user, payload.user],
                 isToken:payload.token,
             };
-        case LOGIN_FAILURE:
+        case LOGIN_FAILUER:
             return{
                 ...oldState,
                 isError:true,

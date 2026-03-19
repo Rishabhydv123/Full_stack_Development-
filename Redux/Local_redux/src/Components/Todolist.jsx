@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_TODOS,EDIT_TODOS } from "../Redux/Todos/Action";
+import { DELETE_TODOS,EDIT_TODOS } from "../Redux/Todos/Action1";
 
 export const TodoList = ()=>{
     const dispatch = useDispatch();

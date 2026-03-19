@@ -17,7 +17,7 @@ export const Navbar=()=>{
             to={item.path}
             style={({isActive} ) => ({
               textDecoration: 'none',
-              backgroundColor: isActive ? 'pink': 'Tomato'
+              backgroundColor: isActive ? 'Tomato': 'white'
             })}
           >
             {item.element}

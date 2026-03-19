@@ -1,14 +1,15 @@
-import React from 'react'
-import {Login} from './Components/Login'
-import { AllRoutes } from './Routes/AllRoutes'
-import {Navbar} from './Components/Navbar'
+import { useState } from 'react'
 
-export const App =()=>{
-  return(
+import './App.css'
+import { Navbar } from './Components/Navbar'
+import { AllRoutes } from './Routes/AllRoutes'
+
+export function App() {
+ 
+  return (
     <>
-    <Navbar />
-    <AllRoutes />
+      <Navbar/>
+      <AllRoutes/>
     </>
   )
 }
-

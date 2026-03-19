@@ -1,14 +1,24 @@
-import { combineReducers, legacy_createStore } from "redux";
-import {AuthReducer} from '../Redux/Auth/Reducer';
-import { TodoReducer } from "../Redux/Todos/Reducer";
+import { legacy_createStore, combineReducers, compose, applyMiddleware } from "redux";
+import { thunk } from "redux-thunk";
 
-const rootTerminal= combineReducers({
-    auth:AuthReducer,
-    todo: TodoReducer
-})
+import { Reducer as authReducer } from "../Redux/Auth/Reducer";
+import { Reducer as todoReducer } from "../Redux/todos/Reducer";
+import { Reducer as userReducer } from "../Redux/Api/Reducer";
 
-const ownStore = legacy_createStore(rootTerminal, 
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const rootReducer = combineReducers({
+  auth: authReducer,
+  todo: todoReducer,
+  user: userReducer,
+});
 
-export {ownStore};
+const composeEnhancers =
+  typeof window === "object" &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(thunk));
+
+const store = legacy_createStore(rootReducer, enhancer);
+
+export { store };
