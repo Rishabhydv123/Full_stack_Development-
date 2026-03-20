@@ -43,6 +43,7 @@ const Reducer = (oldState = initialValue, { type, payload }) => {
       return {
         ...oldState,
         isError: true,
+        isLoading: false,
       };
 
     case REMOVE_TOKEN:

@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../Redux/Auth/Action';
 import { useNavigate } from 'react-router-dom';
 
+import { LOGIN_SUCCESS } from '../Redux/Auth/Action';
+
 export const Login = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const value = useSelector((store) => store.auth.isLoading);
-  console.log('🚀 ~ value:', value);
+  const { isLoading, isError } = useSelector((store) => store.auth);
 
   const [userValue, setUserValue] = React.useState({
     email: '',
@@ -29,13 +30,20 @@ export const Login = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    //dispatch({type:"",payload:""})
-    dispatch(loginUser(userValue)).then(() => navigate('/'));
-    // loginUser(userValue, dispatch);
+
+    dispatch(loginUser(userValue)).then((res) => {
+      if (res.type === LOGIN_SUCCESS) {
+        navigate('/');
+      }
+    });
   };
 
-  if (value) {
+  if (isLoading) {
     return <h1>Loading....</h1>;
+  }
+
+  if (isError) {
+    return <h1>Something went wrong....❌</h1>;
   }
 
   return (
@@ -52,7 +60,11 @@ export const Login = () => {
       >
         <div>
           <label htmlFor="">email</label>{' '}
-          <input type="text" name="email" onChange={(e) => handleChange(e)} />
+          <input
+            type="text"
+            name="email"
+            onChange={(e) => handleChange(e)}
+          />
         </div>
 
         <div>
