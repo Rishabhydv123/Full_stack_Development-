@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { loadData, saveData } from '../Data/localStorage';
-// import { sindleUserData } from '../Redux/Api/Action';
+// import { singleUserData } from '../Redux/Api/Action';
 
 export const SinglePage = () => {
   const params = useParams();
-  console.log('🚀 ~ params:', params);
+  console.log('params:', params);
+
   // const dispatch = useDispatch();
 
   const { userData } = useSelector((store) => store.user);
@@ -18,7 +19,7 @@ export const SinglePage = () => {
   const [singlePage, setSinglePage] = React.useState(localVal || null);
 
   React.useEffect(() => {
-    // dispatch(sindleUserData(params.id));
+    // dispatch(singleUserData(params.id));
     if (params.id) {
       let findID = userData.find((el) => el.id == params.id);
       if (findID) {

@@ -1,12 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../Redux/Auth/Action';
-import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const value = useSelector((store) => store.auth.isLoading);
   console.log('🚀 ~ value:', value);
@@ -30,7 +27,7 @@ export const Login = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     //dispatch({type:"",payload:""})
-    dispatch(loginUser(userValue)).then(() => navigate('/'));
+    dispatch(loginUser(userValue)); //og pattern
     // loginUser(userValue, dispatch);
   };
 

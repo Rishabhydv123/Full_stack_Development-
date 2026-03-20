@@ -9,7 +9,7 @@ import axios from 'axios';
 export const loginUser = (userData) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
-  return axios
+  axios
     .post('https://reqres.in/api/login', userData, {
       headers: {
         'x-api-key': 'reqres_c27db760fb6f4b06a48a548c02bf449f',
@@ -23,6 +23,7 @@ export const loginUser = (userData) => (dispatch) => {
     )
     .catch((err) => {
       console.log('🚀 ~ err:', err);
+
       dispatch({ type: LOGIN_FAILUER });
     });
 };
