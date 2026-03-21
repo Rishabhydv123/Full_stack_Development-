@@ -14,7 +14,6 @@ export const App = () => {
 
       <button onClick={() => setToggleState1(!toggle)}>toggle1</button>
 
-
       </>
     );
 };
