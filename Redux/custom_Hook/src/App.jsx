@@ -5,16 +5,12 @@ function App() {
   const { cart, addItem, removeItem, totalPrice } = useCart();
 
   return (
-    <div>
+<div className="container">
       <h1>Shopping Cart</h1>
 
-      <button onClick={() => addItem({ name: "T-Shirt", price: 500 })}>
-        Add T-Shirt
-      </button>
+      <button onClick={() => addItem({ name: "Shirt", price: 700 })}>Add T-Shirt</button>
 
-      <button onClick={() => addItem({ name: "Shoes", price: 2000 })}>
-        Add Shoes
-      </button>
+      <button onClick={() => addItem({ name: "Shoes", price: 1000 })}>Add Shoes</button>
 
       <h2>Cart Items:</h2>
       {cart.map((item, index) => (
