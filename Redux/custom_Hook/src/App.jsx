@@ -9,9 +9,8 @@ function App() {
       <h1>Shopping Cart</h1>
 
       <button onClick={() => addItem({ name: "Shirt", price: 700 })}>Add T-Shirt</button>
-
       <button onClick={() => addItem({ name: "Shoes", price: 1000 })}>Add Shoes</button>
-
+      
       <h2>Cart Items:</h2>
       {cart.map((item, index) => (
         <div key={index}>
