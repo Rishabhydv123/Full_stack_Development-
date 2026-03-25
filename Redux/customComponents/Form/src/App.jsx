@@ -1,4 +1,4 @@
-import { Button } from "./Components/Button";
+import { Button } from "./Components/button";
 import { Form } from "./Components/Form";
 import './App.css';
 
@@ -8,31 +8,31 @@ export const App = () => {
     {
       type: "text",
       name: "userName",
-      placeholder: "Enter your name...",
+      placeholder: "Enter your Name...",
       id: "username",
     },
     {
       type: "email",
       name: "userEmail",
-      placeholder: "Enter your email...",
+      placeholder: "Enter your Email...",
       id: "useremail",
     },
     {
       type: "password",
       name: "userPassword",
-      placeholder: "Enter your password...",
+      placeholder: "Enter your Password...",
       id: "userpassword",
     },
     {
       type: "tel",
       name: "userPhone",
-      placeholder: "Enter your phone...",
+      placeholder: "Enter your Phone...",
       id: "userphone",
     },
      {
       type: "textarea", 
       name: "userAddress",
-      placeholder: "Enter your address...",
+      placeholder: "Enter your Address...",
       id: "useraddress",
     },
     {
@@ -47,7 +47,7 @@ export const App = () => {
     <>
       <Form data={formData} />
 
-      {/* <Button
+      <Button
         style={{ padding: "0.5rem 2rem", background: "red" }}
         value="login"
       >
@@ -59,7 +59,7 @@ export const App = () => {
         value="signin"
       >
         Sign In
-      </Button> */}
+      </Button>
     </>
   );
 };
