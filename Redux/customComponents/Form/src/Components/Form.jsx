@@ -109,9 +109,7 @@ export const Form = ({ data, button = 'submit' }) => {
   alert("Please fill the form correcr way");
 }
   };
-
-
-
+ 
   console.log('🚀 ~ formData:', formData);
 
   return (
