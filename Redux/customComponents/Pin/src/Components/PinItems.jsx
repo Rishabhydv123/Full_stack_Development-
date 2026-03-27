@@ -1,40 +1,27 @@
-import React from 'react';
+import React from "react";
 
 export const PinItems = React.forwardRef(
-  ({ max, handleChangeEvent }, nodeRefData) => {
-    const handlePintItems = (e) => {
-      // console.log('🚀 ~ e:', e);
-      switch (e.keyCode) {
-        // backSpace
-        case 8:
-          break;
-
-        // tab key
-        case 9:
-          e.preventDefault();
-          break;
-
-        default:
-          handleChangeEvent(e);
-      }
-    };
-
+  ({ value, max, onChange, onKeyDown }, ref) => {
     return (
-      <>
-        <input
-          style={{
-            width: '35px',
-            height: '35px',
-            border: '0.15rem solid gray',
-            borderRadius: '0.2rem',
-            textAlign: 'center',
-          }}
-          type="text"
-          maxLength={max}
-          onKeyUp={handlePintItems}
-          ref={nodeRefData}
-        />
-      </>
+      <input
+        ref={ref}
+        value={value}
+        type="text"
+        maxLength={max}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        style={{
+          width: "45px",
+          height: "45px",
+          textAlign: "center",
+          fontSize: "20px",
+          border: "2px solid gray",
+          borderRadius: "6px",
+          outline: "none",
+        }}
+        onFocus={(e) => (e.target.style.border = "2px solid blue")}
+        onBlur={(e) => (e.target.style.border = "2px solid gray")}
+      />
     );
-  },
+  }
 );

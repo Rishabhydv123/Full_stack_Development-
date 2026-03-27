@@ -1,58 +1,50 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
+import { PinItems } from "./PinItems";
 
-import PropTypes from 'prop-types';
-import { PinItems } from './PinItems';
+export const InputBox = ({ label, length, perBox, setValue }) => {
+  const [pinValue, setPinValue] = React.useState(new Array(length).fill(""));
+  const inputRefs = React.useRef([]);
 
-export const InputBox = ({ lable, length, perBox }) => {
-  const [PinValue, setPinValue] = React.useState(new Array(length).fill(''));
+  
 
-  const nodeRefData = React.useRef(new Array(length).fill(0));
-
-  const handleChange = (event, index) => {
-    let value = event.target.value;
-
-    let newVal = [...PinValue];
-
-    newVal[index] = value;
-
-    setPinValue(newVal);
-
-    // nodeRefData.current[index + 1]?.focus();
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !pinValue[index] && index > 0) {
+      inputRefs.current[index - 1].focus();
+    }
   };
-
-  console.log('🚀 ~ PinValue:', PinValue);
 
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>{lable}</h1>
+      <h2 style={{ textAlign: "center" }}>{label}</h2>
+
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          width: '70%',
-          margin: 'auto',
+          display: "flex",
+          justifyContent: "center",
+          gap: "12px",
         }}
       >
-        {PinValue.map((_, i) => {
-          return (
-            <PinItems
-              key={i + 1}
-              max={perBox}
-              handleChangeEvent={(e) => handleChange(e, i)}
-              nodeRefData={(node) => (nodeRefData.current[i] = node)}
-            />
-          );
-        })}
+        {pinValue.map((val, i) => (
+          <PinItems
+            key={i}
+            value={val}
+            max={perBox}
+            onChange={(e) => handleChange(e, i)}
+            onKeyDown={(e) => handleKeyDown(e, i)}
+            ref={(el) => (inputRefs.current[i] = el)}
+          />
+        ))}
       </div>
     </>
   );
 };
 
 InputBox.propTypes = {
-  lable: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 InputBox.defaultProps = {
-  length: 3,
+  length: 4,
   perBox: 1,
 };
