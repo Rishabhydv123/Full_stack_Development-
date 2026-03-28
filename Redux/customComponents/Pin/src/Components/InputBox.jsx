@@ -6,9 +6,6 @@ export const InputBox = ({ label, length, perBox, setValue }) => {
   const [pinValue, setPinValue] = React.useState(new Array(length).fill(""));
   const inputRefs = React.useRef([]);
 
-  const handleChange = (e, index) => {
-    const value = e.target.value;
-
   
 
   const handleKeyDown = (e, index) => {
