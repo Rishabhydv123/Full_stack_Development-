@@ -6,7 +6,21 @@ export const InputBox = ({ label, length, perBox, setValue }) => {
   const [pinValue, setPinValue] = React.useState(new Array(length).fill(""));
   const inputRefs = React.useRef([]);
 
-  
+  const handleChange = (e, index) => {
+    const value = e.target.value;
+
+    if (!/^[0-9]?$/.test(value)) return;
+
+    const newArr = [...pinValue];
+    newArr[index] = value;
+    setPinValue(newArr);
+
+    setValue(newArr.join(""));
+
+    if (value && index < length - 1) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && !pinValue[index] && index > 0) {
