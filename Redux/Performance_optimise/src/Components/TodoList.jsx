@@ -1,7 +1,21 @@
-import { memo } from "react";
+import { memo, useMemo } from 'react';
 
 const expensiveFunction = (value) => {
   const startTime = Date.now();
+
+  /* setTimeout(() => {
+    const endTime = Date.now();
+    console.log('🚀 ~ startTime:', startTime);
+    console.log('🚀 ~ endTime:', endTime);
+
+    let calculation = endTime - startTime;
+    console.log(
+      '🚀 ~ calculation:',
+      calculation,
+      'the final value',
+      calculation <= value
+    );
+  }, 100); */
 
   while (Date.now() - startTime <= value) {
     continue;
@@ -10,8 +24,14 @@ const expensiveFunction = (value) => {
   return true;
 };
 
+/*
+memo -> use for components optimize
+useCallback -> use for hook optimize
+useMemo -> use for calculation function optimization
+*/
+
 const TodoList = ({ todo, handleDelete, handleEdits }) => {
-  expensiveFunction(200);
+  useMemo(() => expensiveFunction(200), []);
 
   return (
     <>
@@ -21,11 +41,11 @@ const TodoList = ({ todo, handleDelete, handleEdits }) => {
             <div
               key={el.id}
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "1rem auto",
-                gap: "0.5rem",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                margin: '1rem auto',
+                gap: '0.5rem',
               }}
             >
               <input type="checkbox" />
@@ -39,14 +59,15 @@ const TodoList = ({ todo, handleDelete, handleEdits }) => {
   );
 };
 
-const expensiveCalculationFn = (prevValue, currValue) => {
-  return (
-    prevValue.todo.length === currValue.todo.length &&
-    prevValue.todo.every(
-      (el, index) =>
-        el.isEdits === currValue.todo[index].isEdits
-    )
-  );
-};
+// const expensiveCalculationFunc = (prevValue, currValue) => {
+//   return (
+//     prevValue.todo.length === currValue.todo.length &&
+//     prevValue.todo.map(
+//       (el, index) => el.isEdits !== currValue.todo[index].isEdits
+//     )
+//   );
+// };
 
-export const TodoLists = memo(TodoList, expensiveCalculationFn);
+// export const TodoLists = memo(TodoList, expensiveCalculationFunc);
+
+export const TodoLists = TodoList;
