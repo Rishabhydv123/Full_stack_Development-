@@ -19,30 +19,35 @@ const fs = require('fs');
 
 
 
+// delete
+
+// fs.rm('../Datafile1.txt');
 
 // fs.unlink('../Data.txt', (err) => {
 //     if (err) {
 //         console.log(err);
-//         return;
 //     }
 //     console.log('File deleted successfully');
 // });
 
 
-// fs.writeFile('../Datafile.txt', 'New updated content', (err) => {
-//     if (err) {
-//         console.log(err);
-//         return;
-//     }
-//     console.log('File updated successfully');
-// });
+// Create
 
-
-
-fs.appendFile('../Datafile.txt', '\nAdded new line', (err) => {
+fs.writeFile('../Datafile1.txt', 'New updated content', (err) => {
     if (err) {
         console.log(err);
-        return;
     }
-    console.log('Content appended successfully');
+    console.log('File updated successfully');
 });
+
+
+// Update Append
+// fs.appendFile('../Datafile.txt', '\nHell Rishabh', (err) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log('Content appended successfully');
+// });   
+
+
+// HW -> Remove the value in file single value
