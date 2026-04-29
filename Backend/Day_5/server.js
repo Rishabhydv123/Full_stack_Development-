@@ -1,6 +1,7 @@
 const express = require('express')
 
 const fs = require('fs');
+const { json } = require('stream/consumers');
 
 let PORT = 7000;
 let app = express();
@@ -27,8 +28,25 @@ app.post('/create_note',(req,res)=>{
     );
 });
 
-// update 
+// update
+app.put('/update_note',(req, res)=>{
+    fs.writeFile('./data.json' ,JSON.stringify(req.body),(err)=>{
+        if(err){
+            console.log(err)
+        }
+    });
+    res.send("update")
+})
+
 //delete 
+app.delete('/delete_note', (req,res)=>{
+    fs.writeFile('./data.json',(err)=>{
+        if(err){
+            console.log(err)
+        }
+    });
+    res.end("delete")
+})
 
 app.listen(PORT, '127.0.0.1',()=>{
     console.log(`port is running on ${PORT}`);
