@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose');
 
 const main = async () => {
@@ -16,15 +14,12 @@ const main = async () => {
             }
         ]);
 
-        // await userData.save();
+        await userData.save();
 
         const data = await mainModel.find({ age: 100 });
         console.log('🚀 ~ data:', data);
-
         await (await connection).disconnect();
-
         console.log('DB is disconnected !');
-
         // console.log('this is connection', connection);
 
     } catch (error) {
