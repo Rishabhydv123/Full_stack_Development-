@@ -22,6 +22,9 @@ app.post('/userCreate', async(req, res) =>{
     res.send({msg: 'data Created', data: userData });
 });
 
+// update
+
+
 app.listen(PORT, async () =>{
     try{
         await connection;
