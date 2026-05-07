@@ -5,5 +5,4 @@ const Connection = mongoose.connect(process.env.Mongoose_URL);
 
 module.exports ={
      Connection, 
-
 };
