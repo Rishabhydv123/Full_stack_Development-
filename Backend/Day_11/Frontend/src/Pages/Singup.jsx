@@ -1,10 +1,14 @@
 import React from 'react';
-import axios from 'axios';
+import { userLocation} from 'react-router-dom';
 
-export const Signup = () => {
+import { Api } from '../Utils/Api';
+
+export const Signup =() =>{
+    const location = userLocation();
+
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+    
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
