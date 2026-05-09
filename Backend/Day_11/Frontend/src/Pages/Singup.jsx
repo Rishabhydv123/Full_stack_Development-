@@ -1,47 +1,49 @@
 import React from 'react';
-import { userLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { Api } from '../Utils/Api';
 
-export const Signup =() =>{
-    const location = userLocation();
+export const Signup = () => {
+    const location = useLocation();
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    
-    const handleFormSubmit = (e) => {
+
+    console.log('🚀 ~ location:', location);
+
+    const handeFormSubmit = (e) => {
         e.preventDefault();
 
-        axios
-            .post('http://localhost:7300/signup', {
-                email,
-                password,
-            })
+        Api.post(location.pathname, { email, password })
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
     };
 
     return (
-        <form onSubmit={handleFormSubmit}>
-            <label htmlFor="email"></label>
+        <>
+            <h1>Signup</h1>
 
-            <input
-                id="email"
-                type="text"
-                placeholder="enter your email....."
-                onChange={(e) => setEmail(e.target.value)}
-            />
+            <form onSubmit={handeFormSubmit}>
+                <label htmlFor="email"></label>
 
-            <label htmlFor="password"></label>
+                <input
+                    id="email"
+                    type="text"
+                    placeholder="enter your email....."
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-            <input
-                id="password"
-                type="text"
-                placeholder="enter your password....."
-                onChange={(e) => setPassword(e.target.value)}
-            />
+                <label htmlFor="password"></label>
 
-            <button type="submit">submit</button>
-        </form>
+                <input
+                    id="password"
+                    type="text"
+                    placeholder="enter your password....."
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <button type="submit">submit</button>
+            </form>
+        </>
     );
 };

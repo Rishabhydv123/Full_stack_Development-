@@ -1,6 +1,5 @@
-import React from "react";
+import React from 'react';
 
-export const Todos = ()  => {
+export const Todos = () => {
     return <div>Todos</div>;
-
 };
