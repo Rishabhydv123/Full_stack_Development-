@@ -10,7 +10,5 @@ userRoutes.get('/', (req, res) => {
 
 // /user/signup
 userRoutes.post('/signup', signup);
-
 userRoutes.post('/login', login);
-
 export { userRoutes };

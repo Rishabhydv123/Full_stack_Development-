@@ -16,7 +16,7 @@ const getBlog = async (req, res) => {
   db -> product key ->[ title, rating, category]
   */
 
-  const blogs = await blogModel.find();
+  const blog = await blogModel.find();
 
   const keySetup = blogs.reduce((acc, curr) => {
     console.log(`🚀 ~ curr:`, curr);
@@ -27,7 +27,6 @@ const getBlog = async (req, res) => {
   console.log(`🚀 ~ keySetup:`, keySetup);
 
   // const search =
-
   const blogs = await blogModel.find(search).sort(sort);
 
   res.send(blogs);
