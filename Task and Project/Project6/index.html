@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Proposal ❤️</title>
+<link rel="stylesheet" href="./css/first.css">
+</head>
+
+<body>
+
+<div class="container" id="container">
+<img
+src="./image/cat1.jpeg"
+class="main-img">
+
+<h1>🌸 Will you go on a date with me? 🌸</h1>
+
+<div class="buttons">
+<button class="yes-btn" id="yesBtn">YES 💕</button>
+<button class="no-btn" id="noBtn">No 🙈</button>
+</div>
+</div>
+
+<script>
+
+const container = document.getElementById("container");
+let selectedFood = "";
+document.addEventListener("mouseover",(e)=>{
+if(e.target.id==="noBtn"){
+const btn=e.target;
+btn.style.position="fixed";
+btn.style.left=Math.random()*(window.innerWidth-150)+"px";
+btn.style.top=Math.random()*(window.innerHeight-80)+"px";
+
+}
+
+});
+
+document.addEventListener("click",(e)=>{
+if(e.target.id==="yesBtn"){
+showPage2();
+}
+if(e.target.id==="okayBtn"){
+showPage3();
+}
+if(e.target.id==="dateBtn"){
+showPage4();
+}
+if(e.target.id==="foodBtn"){
+showPage5();
+}
+
+});
+
+/* Page 2 */
+
+function showPage2(){
+
+container.innerHTML=`
+
+<img
+src="./image/Screenshot 2026-06-18 113830.png"
+class="main-img">
+
+<h1>WAIT YOU ACTUALLY <br> SAID YES?? 😭</h1>
+
+<p style="font-size:20px;margin-bottom:20px;">
+I was so ready for you to say no 🥺
+</p>
+
+<button class="pink-btn" id="okayBtn">
+okay okay! →
+</button>
+
+`;
+
+}
+
+/* Page 3 */
+
+function showPage3(){
+
+container.innerHTML=`
+
+<img
+src="./image/calander.png"
+class="main-img">
+
+<h1>🗓️ So... when are you free?</h1>
+
+<label>Pick a Day ✨</label>
+
+<input type="date" id="dateInput">
+
+<label>What Time? ⏰</label>
+
+<select id="timeInput">
+<option value="">Select Time</option>
+<option>5:00 PM</option>
+<option>6:00 PM</option>
+<option>7:00 PM</option>
+<option>8:00 PM</option>
+</select>
+
+<button class="pink-btn" id="dateBtn">
+set the date! 💌
+</button>
+
+`;
+
+}
+
+/* Page 4 */
+
+function showPage4(){
+
+const date=document.getElementById("dateInput").value;
+const time=document.getElementById("timeInput").value;
+
+if(date==="" || time===""){
+alert("Please select date and time ❤️");
+return;
+}
+
+container.innerHTML=`
+
+<h1>🍜 What are we feeling?</h1>
+
+<div class="food-grid">
+
+<div class="food-card" data-food="Pizza">
+🍕<br>Pizza
+</div>
+
+<div class="food-card" data-food="Sushi">
+🍣<br>Sushi
+</div>
+
+<div class="food-card" data-food="Burger">
+🍔<br>Burger
+</div>
+
+<div class="food-card" data-food="Pasta">
+🍝<br>Pasta
+</div>
+
+<div class="food-card" data-food="Tacos">
+🌮<br>Tacos
+</div>
+
+<div class="food-card" data-food="Ramen">
+🍜<br>Ramen
+</div>
+
+</div>
+
+<button class="pink-btn" id="foodBtn">
+this one! →
+</button>
+
+`;
+
+const cards=document.querySelectorAll(".food-card");
+
+cards.forEach(card=>{
+
+card.addEventListener("click",()=>{
+
+cards.forEach(c=>c.classList.remove("active"));
+
+card.classList.add("active");
+
+selectedFood=card.dataset.food;
+
+});
+
+});
+
+}
+
+/* Final Page */
+
+function showPage5(){
+
+if(selectedFood===""){
+alert("Please select a food option ❤️");
+return;
+}
+
+container.innerHTML=`
+
+<img
+src="./image/system.png"
+class="final-img">
+
+<h1>
+Glad you didn't say no ❤️
+<br><br>
+Be ready by 6,
+<br>
+I'm coming to get you 🚗
+</h1>
+
+<h2 style="margin-top:20px;color:#ff4d8d;">
+🍽️ Food Choice: ${selectedFood}
+</h2>
+
+<p style="margin-top:20px;">
+P.S. Normal people text.
+I made a website for you 💕
+</p>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
