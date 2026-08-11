@@ -18,6 +18,7 @@ function Details() {
         <button type="submit">Submit</button>
       </form>
     </>
+    
   );
 }
 
